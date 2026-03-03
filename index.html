@@ -368,8 +368,11 @@
       <!-- Point header -->
       <div class="point-header">
         <div class="point-header__label">
-          <span class="point-header__point">POINT</span>
-          <span class="point-header__num">01</span>
+          <div class="point-header__zero-wrap">
+            <span class="point-header__point">POINT</span>
+            <span class="point-header__zero">0</span>
+          </div>
+          <span class="point-header__num">1</span>
         </div>
         <div class="point-header__text">
           <p>セントラルキッチン方式を採用し、</p>
@@ -380,38 +383,49 @@
       <!-- Comparison Visual -->
       <div class="point01-visual">
 
+        <!-- Dashed background lines -->
+        <div class="point01-visual__dashed point01-visual__dashed--top"></div>
+        <div class="point01-visual__dashed point01-visual__dashed--bottom"></div>
+
         <!-- Left cylinder: General restaurant -->
         <div class="cylinder-wrap cylinder-wrap--left">
-          <p class="cylinder-label">飲食店の<br>一般的な人件費率</p>
-          <p class="cylinder-rate">30〜35%</p>
-          <div class="cylinder">
-            <div class="cylinder__top"></div>
+          <div class="cylinder-header">
+            <p class="cylinder-label">飲食店の<br>一般的な人件費率</p>
+            <p class="cylinder-rate">30〜35%</p>
+          </div>
+          <div class="cylinder cylinder--left">
+            <div class="cylinder__top cylinder__top--left"></div>
             <div class="cylinder__body">
               <div class="cylinder__segment cylinder__segment--s1">食材発注業務</div>
               <div class="cylinder__segment cylinder__segment--s2">仕込み業務</div>
               <div class="cylinder__segment cylinder__segment--s3">調理業務</div>
               <div class="cylinder__segment cylinder__segment--s4">接客業務</div>
             </div>
-            <div class="cylinder__bottom"></div>
+            <div class="cylinder__bottom cylinder__bottom--left"></div>
           </div>
         </div>
 
-        <!-- Center: Blue circle + arrow -->
-        <div class="point01-center">
-          <div class="point01-circle">
-            <p class="point01-circle__text">6時間<span class="point01-circle__big">以上</span>の<br>仕込み工数削減で<br>人件費を抑制!</p>
-          </div>
-          <div class="point01-dashed-line"></div>
-          <div class="point01-reduction">
-            <div class="point01-reduction__arrow">▼</div>
-            <span class="point01-reduction__label">5%の削減</span>
-          </div>
+        <!-- Center: Blue circle -->
+        <div class="point01-center-circle">
+          <p class="point01-center-circle__text">
+            6時間以上の<br>
+            仕込み工数削減で<br>
+            人件費を抑制!
+          </p>
         </div>
 
         <!-- Right cylinder: BEAT TACOS -->
         <div class="cylinder-wrap cylinder-wrap--right">
-          <p class="cylinder-label">BEAT TACOSの<br>人件費率</p>
-          <p class="cylinder-rate cylinder-rate--orange">25〜30%</p>
+          <div class="cylinder-header">
+            <p class="cylinder-label">BEAT TACOSの<br>人件費率</p>
+            <p class="cylinder-rate cylinder-rate--red">25〜30%</p>
+          </div>
+
+          <div class="point01-reduction">
+            <div class="point01-reduction-arrow">5%</div>
+            <span class="point01-reduction-text">の削減</span>
+          </div>
+
           <div class="cylinder cylinder--right">
             <div class="cylinder__top cylinder__top--right"></div>
             <div class="cylinder__body">
@@ -428,7 +442,8 @@
 
       <!-- Bottom text -->
       <p class="point01-description">
-        グループが保有するセントラルキッチンにて、肉の加工およびソースの製造を行っています。これにより、仕込みの時間が<br>
+        グループが保有するセントラルキッチンにて、肉の加工およびソース<br>
+        の製造を行っています。これにより、仕込みの時間が<br>
         6時間程度軽減され、人件費の大幅削減につながっております。
       </p>
 
@@ -442,8 +457,11 @@
       <!-- Point header -->
       <div class="point-header">
         <div class="point-header__label">
-          <span class="point-header__point">POINT</span>
-          <span class="point-header__num">02</span>
+          <div class="point-header__zero-wrap">
+            <span class="point-header__point">POINT</span>
+            <span class="point-header__zero">0</span>
+          </div>
+          <span class="point-header__num">2</span>
         </div>
         <div class="point-header__text">
           <p>商品開発機能を保有し、</p>
@@ -565,8 +583,11 @@
       <!-- Point header -->
       <div class="point-header">
         <div class="point-header__label">
-          <span class="point-header__point">POINT</span>
-          <span class="point-header__num">03</span>
+          <div class="point-header__zero-wrap">
+            <span class="point-header__point">POINT</span>
+            <span class="point-header__zero">0</span>
+          </div>
+          <span class="point-header__num">3</span>
         </div>
         <div class="point-header__text">
           <p>幅広い客層とリピーターを獲得し</p>
@@ -640,8 +661,11 @@
       <!-- Point header -->
       <div class="point-header">
         <div class="point-header__label">
-          <span class="point-header__point">POINT</span>
-          <span class="point-header__num">04</span>
+          <div class="point-header__zero-wrap">
+            <span class="point-header__point">POINT</span>
+            <span class="point-header__zero">0</span>
+          </div>
+          <span class="point-header__num">4</span>
         </div>
         <div class="point-header__text">
           <p>地域コミュニティを意識した</p>
