@@ -178,7 +178,8 @@ img {
 
 /* ========== HERO ========== */
 .hero {
-  --hero-width: 1200px; /* SWEET SPOT: change this one value to control the entire hero width */
+  --hero-width: 1200px;
+  /* SWEET SPOT: change this one value to control the entire hero width */
   position: relative;
   overflow: hidden;
   color: #fff;
@@ -878,14 +879,19 @@ img {
 /* Point header: "POINT 01" + heading text */
 .point-header {
   display: flex;
-  align-items: center;
+  align-items: flex-end;
   justify-content: center;
   width: max-content;
   max-width: 100%;
   margin: 0 auto 48px;
   border-bottom: 2px solid #6ba2e1;
-  padding-bottom: 12px;
-  padding-right: 16px;
+  /* SWEET SPOT: --underline-gap controls space between text and the underline. Increase = more gap. */
+  --underline-gap: 4px;
+  padding-bottom: var(--underline-gap);
+  /* SWEET SPOT: --underline-extend controls how far the underline stretches beyond the content on each side. Increase = longer line. */
+  --underline-extend: 60px;
+  padding-left: var(--underline-extend);
+  padding-right: var(--underline-extend);
 }
 
 .point-header__label {
@@ -894,6 +900,8 @@ img {
   line-height: 1;
   flex-shrink: 0;
   margin-right: 24px;
+  /* SWEET SPOT: --number-weight controls boldness of 01, 02, 03, 04. 400=normal, 500=medium, 600=semi-bold, 700=bold */
+  --number-weight: 300;
 }
 
 .point-header__zero-wrap {
@@ -905,14 +913,21 @@ img {
   position: relative;
   font-family: 'Oswald', sans-serif;
   font-size: 2.3rem;
-  font-weight: 500;
+  /* SWEET SPOT: --point-weight controls how bold POINT is. 300=light, 400=normal, 500=medium, 600=semi-bold, 700=bold */
+  --point-weight: 500;
+  font-weight: var(--point-weight);
   color: #6ba2e1;
   letter-spacing: 5px;
   z-index: 2;
-  /* In front of 0 mask */
-  margin-right: -42px;
-  /* Pull the 0 leftwards to overlap the NT */
-  /* Fine-tuned white mask around NT to create the flush curved clipping gap */
+  /*
+     SWEET SPOT: --point-overlap controls how far POINT slides under the 0.
+     Increase negative value = POINT goes further right under the 0.
+  */
+  --point-overlap: -42px;
+  margin-right: var(--point-overlap);
+  /* SWEET SPOT: --point-lift moves POINT up into the 0's gap. Increase = higher. */
+  --point-lift: 38px;
+  transform: translateY(calc(-1 * var(--point-lift)));
   text-shadow:
     -1px -1px 0 #fff, 1px -1px 0 #fff, -1px 1px 0 #fff, 1px 1px 0 #fff,
     -2px -2px 0 #fff, 2px -2px 0 #fff, -2px 2px 0 #fff, 2px 2px 0 #fff,
@@ -923,53 +938,47 @@ img {
   position: relative;
   font-family: 'Oswald', sans-serif;
   font-size: 7.5rem;
-  font-weight: 500;
+  font-weight: var(--number-weight);
   color: #6ba2e1;
-  /* Solid filled ZERO as requested */
   -webkit-text-stroke: 0;
-  line-height: 0.85;
+  line-height: 1;
   letter-spacing: -2px;
   z-index: 1;
-  /* Behind POINT */
   text-shadow: none;
 
   /* 
      SWEET SPOT TUNING VARIABLES
-     Change these three numbers in your browser inspector to find the perfect cut!
-     By using variables, we ensure the cutout stays a perfect rectangle instead of getting slanted.
+     The 0 circles around POINT from both above and below.
+     The cutout is a rectangular notch on the LEFT side of the 0 where the "NT" of POINT sits.
+     
+     --cutout-top:    where the notch starts (from top). Lower % = higher cut.
+     --cutout-bottom: where the notch ends (from top). Higher % = lower cut.
+     --cutout-depth:  how far right the notch goes into the 0. Higher % = deeper.
+     
+     The top curve of the 0 sits ABOVE the cutout-top.
+     The bottom curve of the 0 sits BELOW the cutout-bottom.
+     Between them is the gap where POINT text shows through.
   */
-  --cutout-depth: 65%;
-  /* Much deeper right to clear the space past the "T" entirely */
-  --cutout-top: 52%;
-  /* The top edge of the cut, slightly higher */
-  --cutout-bottom: 100%;
-  /* The bottom edge of the cut, slightly deeper */
+  --cutout-depth: 58%;
+  --cutout-top: 30%;
+  --cutout-bottom: 68%;
 
-  clip-path: polygon(100% 0%,
+  clip-path: polygon(0% 0%,
+      100% 0%,
       100% 100%,
       0% 100%,
-
-      /* Bottom-left edge of the cutout */
       0% var(--cutout-bottom),
-
-      /* Inner bottom corner of the cutout (same Y as bottom-left edge) */
       var(--cutout-depth) var(--cutout-bottom),
-
-      /* Inner top corner of the cutout (same X as inner bottom corner) */
       var(--cutout-depth) var(--cutout-top),
-
-      /* Top-left edge of the cutout (same Y as inner top corner) */
-      0% var(--cutout-top),
-
-      0% 0%);
+      0% var(--cutout-top));
 }
 
 .point-header__num {
   font-family: 'Oswald', sans-serif;
   font-size: 7.5rem;
-  font-weight: 500;
+  font-weight: var(--number-weight);
   color: #6ba2e1;
-  line-height: 0.85;
+  line-height: 1;
   letter-spacing: -2px;
   margin-left: 2px;
 }
@@ -979,6 +988,10 @@ img {
   font-weight: 700;
   color: #333;
   line-height: 1.5;
+  /* SWEET SPOT: --text-offset-y fine-tunes the vertical position of the Japanese text.
+     Positive = push down, negative = pull up. */
+  --text-offset-y: 5px;
+  margin-top: var(--text-offset-y);
 }
 
 .point-header__text p {
@@ -1005,7 +1018,7 @@ img {
 
 .point01-visual__dashed--top {
   /* TOP DASHED LINE TUNING */
-  --top-y: 188px;
+  --top-y: 108px;
   /* Vertical position (up/down) */
   --top-left: 28%;
   /* Start position (left) */
@@ -1019,7 +1032,7 @@ img {
 
 .point01-visual__dashed--bottom {
   /* BOTTOM DASHED LINE TUNING */
-  --bottom-y: 258px;
+  --bottom-y: 178px;
   /* Vertical position (up/down) */
   --bottom-left: 45%;
   /* Start position (left) */
@@ -1037,8 +1050,7 @@ img {
   flex-direction: column;
   align-items: center;
   width: 220px;
-  height: 480px;
-  /* Ensure both align */
+  height: 400px;
   position: relative;
   z-index: 1;
 }
@@ -1046,11 +1058,14 @@ img {
 /* Header texts */
 .cylinder-header {
   text-align: center;
-  height: 100px;
+  /* SWEET SPOT: --header-height controls the space reserved above the cylinder for the text. Smaller = less gap between POINT heading and cylinders. */
+  --header-height: 80px;
+  height: var(--header-height);
   display: flex;
   flex-direction: column;
-  justify-content: flex-start;
+  justify-content: flex-end;
   width: 100%;
+  overflow: visible;
 }
 
 .cylinder-label {
@@ -1075,7 +1090,7 @@ img {
 .point01-reduction {
   position: absolute;
   /* RED ARROW TUNING */
-  --arrow-y: 182px;
+  --arrow-y: 102px;
   /* Move this value up or down */
 
   top: var(--arrow-y);
@@ -1115,7 +1130,6 @@ img {
   width: 200px;
   position: relative;
   margin-top: auto;
-  /* Base align bottoms to the container bottom */
 }
 
 .cylinder--left {
@@ -1259,7 +1273,7 @@ img {
 /* ---- Center area ---- */
 .point01-center-circle {
   position: absolute;
-  top: 55%;
+  top: 46%;
   left: 50%;
   transform: translate(-50%, -50%);
   width: 260px;
@@ -2861,6 +2875,326 @@ img {
   .business-chance__cta-text {
     font-size: 1.05rem;
   }
+}
+
+/* ========== REVENUE MODEL ========== */
+.revenue-model {
+  padding: 80px 20px 60px;
+  background: #fff;
+}
+
+.revenue-model__inner {
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.revenue-model__title {
+  text-align: center;
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: #333;
+  margin-bottom: 30px;
+  letter-spacing: 1.5px;
+}
+
+/* --- Revenue Table --- */
+.revenue-table-wrap {
+  max-width: 800px;
+  margin: 0 auto 35px;
+}
+
+.revenue-table {
+  width: 100%;
+  border-collapse: collapse;
+  border: 4px double #b3b3b3;
+  /* Double border to match Figma */
+  table-layout: fixed;
+}
+
+.revenue-table th,
+.revenue-table td {
+  border: 1px solid #b3b3b3;
+  /* Darker grey lines */
+  padding: 6px 15px;
+  /* Reduced vertical padding for compactness */
+  vertical-align: middle;
+  font-size: 1.15rem;
+  /* Increased font size */
+  color: #333;
+}
+
+/* Header Cells */
+.revenue-table th {
+  background: #ebebeb;
+  font-weight: 500;
+  text-align: center;
+  color: #333;
+}
+
+/* Specific column widths */
+.revenue-table th.col-item {
+  width: 45%;
+}
+
+.revenue-table th.col-val {
+  width: 32%;
+}
+
+.revenue-table th.col-ratio {
+  width: 23%;
+}
+
+/* Data Cells */
+.revenue-table td:first-child {
+  background: #ebebeb;
+}
+
+.revenue-table td:first-child:not(.indent-1) {
+  text-align: left;
+}
+
+.revenue-table td.cell-money,
+.revenue-table td.cell-ratio {
+  text-align: right;
+  letter-spacing: 0.5px;
+}
+
+/* Indented items (with gray block) */
+.revenue-table td.indent-1 {
+  position: relative;
+  /* Original padding-left was 15px. We add 35px for the block = 50px */
+  padding-left: 50px;
+}
+
+.revenue-table td.indent-1::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: -1px;
+  left: 0;
+  width: 35px;
+  /* Width of the gray indentation block matches Figma rendering */
+  background: #ebebeb;
+  border-right: 1px solid #b3b3b3;
+  z-index: 1;
+}
+
+/* Blurred effect for values */
+.revenue-table .is-blurred {
+  color: transparent !important;
+  text-shadow: 0 0 7px rgba(0, 0, 0, 0.25);
+  user-select: none;
+}
+
+/* Highlight at bottom */
+.revenue-model__highlight {
+  text-align: center;
+  margin-top: 15px;
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: #333;
+}
+
+.revenue-model__highlight .yellow-marker {
+  display: inline-block;
+  background: linear-gradient(transparent 70%, #fff000 70%);
+  padding: 0 8px;
+}
+
+@media (max-width: 768px) {
+  .revenue-model__title {
+    font-size: 1.4rem;
+  }
+
+  .revenue-table th,
+  .revenue-table td {
+    font-size: 0.8rem;
+    padding: 8px 10px;
+  }
+
+  .revenue-table td.indent-1 {
+    padding-left: 36px;
+  }
+
+  .revenue-table td.indent-1::before {
+    width: 26px;
+  }
+
+  .revenue-model__highlight {
+    font-size: 1.1rem;
+  }
+}
+
+/* ========== SUPPORT & FRANCHISE PLAN ========== */
+.support-plan {
+  padding: 80px 20px 70px;
+  background: #fff;
+}
+
+.support-plan__inner {
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.support-plan__title {
+  text-align: center;
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: #333;
+  margin-bottom: 30px;
+  letter-spacing: 1.5px;
+}
+
+/* --- Support Table --- */
+.support-table-wrap {
+  margin-bottom: 24px;
+}
+
+.support-table {
+  /* --- SWEET SPOT CONFIGURATION --- */
+  --table-font-size: 1.1rem;
+  /* <-- Adjust this value to increase/decrease ALL text sizes in the table */
+  --table-padding-y: 6px;
+  /* <-- Adjust this value to increase/decrease the gap between points */
+  --table-padding-x: 14px;
+  /* <-- Adjust this for side padding inside cells */
+
+  width: 100%;
+  table-layout: fixed;
+  border-collapse: collapse;
+  border: 3px double #9ebddf;
+}
+
+/* Header */
+.support-table th {
+  background: #0b55a0;
+  color: #fff;
+  font-size: 1.15rem;
+  font-weight: 500;
+  padding: 14px 20px;
+  text-align: center;
+  letter-spacing: 3px;
+  border-bottom: 2px solid #fff;
+}
+
+/* Gap between headers */
+.support-table th.col-theme {
+  border-right: 4px solid #fff;
+}
+
+/* Body Cells */
+.support-table td {
+  border: 3px double #9ebddf;
+  padding: var(--table-padding-y) var(--table-padding-x);
+  vertical-align: top;
+  color: #333;
+  font-size: var(--table-font-size);
+  line-height: 1.6;
+}
+
+/* Hide internal borders where rows are split using rowspan */
+.support-table .no-border-bottom td {
+  border-bottom: none;
+}
+
+.support-table .no-border-top td {
+  border-top: none;
+}
+
+/* Column Overrides */
+.support-table .cell-num {
+  text-align: center;
+  font-size: 1.1em;
+  /* Scales automatically with --table-font-size */
+  vertical-align: middle;
+}
+
+.support-table .cell-theme {
+  text-align: left;
+  padding: var(--table-padding-y) 10px var(--table-padding-y) 10px;
+  vertical-align: middle;
+}
+
+.support-table .cell-theme-sub {
+  text-align: left;
+  padding: var(--table-padding-y) 10px var(--table-padding-y) 24px;
+}
+
+.support-table .cell-theme-sub p {
+  margin: 0;
+  font-size: 0.95em;
+  /* Scales automatically with --table-font-size */
+  line-height: 1.6;
+}
+
+/* Content Column (Checkmarks) */
+.support-table .cell-content {
+  padding-left: 32px;
+  /* Pad cell globally instead of just pushing text */
+}
+
+.support-table .cell-content p {
+  margin: 0 0 16px 0;
+  position: relative;
+}
+
+.support-table .cell-content p:last-child {
+  margin: 0;
+}
+
+.support-table .check {
+  display: block;
+  position: absolute;
+  left: -20px;
+  top: 0;
+}
+
+.support-table .check::before {
+  content: "✓";
+  color: #555;
+  font-size: 1.1em;
+  font-weight: bold;
+}
+
+/* --- Franchise Plan Summary Box --- */
+.franchise-plan-box {
+  display: flex;
+  width: 100%;
+}
+
+.franchise-plan-box__left {
+  flex: 0 0 35%;
+  width: 35%;
+  background: #d0e6f5;
+  color: #333;
+  font-size: 1.45rem;
+  font-weight: 500;
+  letter-spacing: 2px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px 10px;
+  border-right: 2px solid #fff;
+}
+
+.franchise-plan-box__right {
+  flex: 0 0 65%;
+  width: 65%;
+  background: #e6f0f7;
+  padding: 25px 40px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 12px;
+  border-left: 2px solid #fff;
+}
+
+.franchise-plan-box__right .plan-text {
+  font-size: 1.25rem;
+  color: #444;
+  margin: 0;
+  font-weight: 500;
+  letter-spacing: 1px;
 }
 
 @media (max-width: 480px) {
