@@ -226,7 +226,36 @@ DELETE the section labeled:
   ...everything until the closing } of that if block
 
 
+========================================
+  SECTION 4: SUPPORT PLAN TABLE
+========================================
+
+--- STEP 1: style.css (Mobile Styles) ---
+
+Find the section labeled:
+  /* ========== SUPPORT TABLE MOBILE (SHRINK TO FIT) ========== */
+
+DELETE this entire section below it:
+  .support-table-wrap { ... }
+  .support-table { ... }
+  .support-table td { ... }
+
+Then, UNCOMMENT the old horizontal scroll code right above it:
+
+  /* ===== [OLD HORIZONTAL SCROLL CODE] =====
+  .support-table-wrap {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+  .support-table {
+    min-width: 620px;
+  }
+  ===== [END OLD HORIZONTAL SCROLL CODE] ===== */
+
+Uncommenting means removing the `/* ===== ... ===== */` and `===== [END ... ] ===== */` parts so the CSS is active again.
+
+
 ================================================================================
-  Save all files and refresh the page. Both sections will revert to
+  Save all files and refresh the page. The sections will revert to
   horizontal scrolling on mobile.
 ================================================================================

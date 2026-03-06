@@ -1994,15 +1994,150 @@ img {
     font-size: var(--sp-support-title-size) !important;
   }
 
-  /* Horizontal scroll for support table on mobile */
+  /* ========== SUPPORT TABLE MOBILE (100% WRAP & 50/50 SPLIT) ========== */
   .support-table-wrap {
-    overflow-x: auto;
-    -webkit-overflow-scrolling: touch;
+    width: 100%;
+    margin-bottom: 30px;
+    overflow-x: hidden;
+  }
+
+  /* Use the colgroup to control column widths (DON'T hide it!) */
+  .support-table colgroup col:nth-child(1) {
+    width: var(--col-number-width) !important;
+  }
+
+  .support-table colgroup col:nth-child(2) {
+    width: var(--col-theme-width) !important;
+  }
+
+  .support-table colgroup col:nth-child(3) {
+    width: var(--col-subtheme-width) !important;
+  }
+
+  .support-table colgroup col:nth-child(4) {
+    width: 50% !important;
   }
 
   .support-table {
-    min-width: 620px;
-    /* Table keeps desktop proportions, user can scroll horizontally */
+    /* 🎯 調整用変数 (TUNE THESE COLUMN WIDTHS!) */
+    /* The first 3 values must add up to 50% (the サポートテーマ half) */
+    --col-number-width: 6%;
+    /* Number column (1, 2, 3...) – make smaller to save space */
+    --col-theme-width: 12%;
+    /* Theme column (出店支援 etc.) */
+    --col-subtheme-width: 32%;
+    /* Sub-theme column (▶ 立地・物件診断 etc.) – needs most space */
+    /* The サポート内容 column automatically gets the remaining 50% */
+
+    width: 100% !important;
+    min-width: 0 !important;
+    max-width: 100% !important;
+    margin: 0 !important;
+    position: relative;
+    transform: none;
+    left: 0;
+    table-layout: fixed !important;
+  }
+
+  /* Force exact 50% / 50% split for the two header cells */
+  .support-table th.col-theme {
+    width: 50% !important;
+  }
+
+  .support-table th.col-content {
+    width: 50% !important;
+  }
+
+  /* Tighten padding on the left-side cells */
+  .support-table .cell-num {
+    padding: 10px 2px !important;
+    font-size: 0.85rem !important;
+  }
+
+  .support-table .cell-theme {
+    padding: 10px 4px !important;
+    font-size: 0.8rem !important;
+  }
+
+  .support-table .cell-theme-sub {
+    padding: 10px 6px !important;
+    font-size: 0.82rem !important;
+  }
+
+  /* The content column: padding-left creates room for the ✓ checkmark */
+  .support-table .cell-content {
+    padding: 10px 8px 10px 24px !important;
+    font-size: 0.85rem !important;
+    word-wrap: break-word;
+  }
+
+  /* Fix checkmark: it uses position:absolute + left:0, 
+     but padding-left:1.2em on the <p> puts it inside the padding zone.
+     We override left to 0 so it sits at the start of the padding area. */
+  .support-table .cell-content p {
+    padding-left: 1.2em !important;
+  }
+
+  .support-table .check::before {
+    left: 0 !important;
+  }
+
+  /* ---- Support Table LIGHTBOX Styling ---- */
+  .cylinder-lightbox__inner .support-table colgroup col:nth-child(1) {
+    width: var(--col-number-width) !important;
+  }
+
+  .cylinder-lightbox__inner .support-table colgroup col:nth-child(2) {
+    width: var(--col-theme-width) !important;
+  }
+
+  .cylinder-lightbox__inner .support-table colgroup col:nth-child(3) {
+    width: var(--col-subtheme-width) !important;
+  }
+
+  .cylinder-lightbox__inner .support-table colgroup col:nth-child(4) {
+    width: 50% !important;
+  }
+
+  .cylinder-lightbox__inner .support-table {
+    width: 100% !important;
+    min-width: 0 !important;
+    max-width: 100% !important;
+    position: relative !important;
+    left: 0 !important;
+    transform: none !important;
+    margin-bottom: 0 !important;
+    table-layout: fixed !important;
+  }
+
+  /* Make sure checkmarks in the lightbox also inherit the safe padding */
+  .cylinder-lightbox__inner .support-table .cell-content {
+    padding: 10px 8px 10px 24px !important;
+  }
+
+  .cylinder-lightbox__inner .support-table .cell-content p {
+    padding-left: 1.2em !important;
+  }
+
+  .cylinder-lightbox__inner .support-table .check::before {
+    left: 0 !important;
+  }
+
+  /* Reset the modal width back to normal to have that nice border */
+  #supportLightbox .cylinder-lightbox__wrapper {
+    overflow-x: hidden;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+    width: 100%;
+    padding: 15px 10px;
+  }
+
+  #supportLightbox .cylinder-lightbox__content {
+    overflow-x: hidden;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+    width: 100%;
+    padding: 15px 10px;
   }
 
   .franchise-plan-box__left {
@@ -2011,7 +2146,7 @@ img {
     font-size: var(--sp-franchise-left-font) !important;
     padding: 12px 2px !important;
     letter-spacing: -0.5px !important;
-  
+
   }
 
   .franchise-plan-box__right {
@@ -4124,6 +4259,8 @@ img {
 }
 
 .cylinder-lightbox__close {
+  flex-shrink: 0;
+  /* Prevent flexbox from squishing the button into an oval */
   position: relative;
   z-index: 100000;
   width: 36px;
