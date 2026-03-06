@@ -59,4 +59,69 @@ document.addEventListener("DOMContentLoaded", () => {
     el.classList.add("fade-in");
     observer.observe(el);
   });
+
+  // ========== Positioning Chart Lightbox ==========
+  const chartImg = document.querySelector(".positioning-chart__img");
+  const lightbox = document.getElementById("chartLightbox");
+
+  if (chartImg && lightbox) {
+    const lightboxBackdrop = lightbox.querySelector(".chart-lightbox__backdrop");
+    const lightboxClose = lightbox.querySelector(".chart-lightbox__close");
+
+    // Open lightbox on chart image click
+    chartImg.addEventListener("click", () => {
+      lightbox.classList.add("is-active");
+      document.body.style.overflow = "hidden";
+    });
+
+    // Close lightbox helpers
+    function closeLightbox() {
+      lightbox.classList.remove("is-active");
+      document.body.style.overflow = "";
+    }
+
+    lightboxBackdrop.addEventListener("click", closeLightbox);
+    lightboxClose.addEventListener("click", closeLightbox);
+
+    // Close on Escape key
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "Escape" && lightbox.classList.contains("is-active")) {
+        closeLightbox();
+      }
+    });
+  }
+
+  // ========== Point 01 Cylinder Lightbox ==========
+  const cylinderWrapper = document.querySelector(".point01-scroll-wrapper");
+  const cylinderLightbox = document.getElementById("cylinderLightbox");
+
+  if (cylinderWrapper && cylinderLightbox) {
+    const cylBackdrop = cylinderLightbox.querySelector(".cylinder-lightbox__backdrop");
+    const cylClose = cylinderLightbox.querySelector(".cylinder-lightbox__close");
+    const cylInner = cylinderLightbox.querySelector(".cylinder-lightbox__inner");
+
+    // Open lightbox: clone cylinder content into overlay
+    cylinderWrapper.addEventListener("click", () => {
+      cylInner.innerHTML = "";
+      const clone = document.querySelector(".point01-visual").cloneNode(true);
+      cylInner.appendChild(clone);
+      cylinderLightbox.classList.add("is-active");
+      document.body.style.overflow = "hidden";
+    });
+
+    function closeCylinderLightbox() {
+      cylinderLightbox.classList.remove("is-active");
+      document.body.style.overflow = "";
+      cylInner.innerHTML = "";
+    }
+
+    cylBackdrop.addEventListener("click", closeCylinderLightbox);
+    cylClose.addEventListener("click", closeCylinderLightbox);
+
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "Escape" && cylinderLightbox.classList.contains("is-active")) {
+        closeCylinderLightbox();
+      }
+    });
+  }
 });

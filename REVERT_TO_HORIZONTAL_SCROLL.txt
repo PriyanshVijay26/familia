@@ -1,0 +1,176 @@
+================================================================================
+  HOW TO REVERT BACK TO HORIZONTAL SCROLLING
+================================================================================
+  This file covers TWO sections:
+  1. Positioning Chart (Business Model section)
+  2. Point 01 Cylinders (Personnel Cost comparison)
+================================================================================
+
+
+========================================
+  SECTION 1: POSITIONING CHART
+========================================
+
+--- STEP 1: style.css (CSS Variable) ---
+
+Find this line (around line 3413):
+  /* [COMMENTED OUT - HORIZONTAL SCROLL VERSION] --sp-positioning-chart-width: 800px; */
+
+Replace it with:
+  --sp-positioning-chart-width: 800px;
+
+
+--- STEP 2: style.css (Mobile Styles) ---
+
+Find this block (search for "COMMENTED OUT - HORIZONTAL SCROLL VERSION" near .positioning-chart):
+
+  /* ===== [COMMENTED OUT - HORIZONTAL SCROLL VERSION] =====
+  .positioning-chart { ... }
+  .positioning-chart__img { ... }
+  ===== [END COMMENTED OUT] ===== */
+
+UNCOMMENT that block so it becomes:
+
+  /* Make chart horizontally scrollable on mobile */
+  .positioning-chart {
+    width: 100%;
+    max-width: none;
+    left: 0;
+    transform: none;
+    overflow-x: auto;
+    overflow-y: hidden;
+    -webkit-overflow-scrolling: touch;
+    padding-bottom: 12px;
+  }
+
+  .positioning-chart__img {
+    width: var(--sp-positioning-chart-width);
+    max-width: none;
+    height: auto;
+  }
+
+Then DELETE or comment out the "Fit-to-screen version" block right below it:
+
+  /* Fit-to-screen version: image scaled down to fit within viewport */
+  .positioning-chart { ... }
+  .positioning-chart__img { ... }
+  .positioning-chart__img:active { ... }
+
+
+--- STEP 3: style.css (Lightbox CSS) ---
+
+DELETE or comment out this entire section at the bottom of style.css:
+
+  /* ========== CHART LIGHTBOX ========== */
+  .chart-lightbox { ... }
+  ...all chart lightbox styles...
+
+
+--- STEP 4: index.html (Lightbox HTML) ---
+
+DELETE these lines (near the bottom, before <script>):
+
+  <!-- Lightbox overlay for positioning chart image -->
+  <div class="chart-lightbox" id="chartLightbox">
+    ...
+  </div>
+
+
+--- STEP 5: js/main.js (Lightbox JavaScript) ---
+
+DELETE the section labeled:
+
+  // ========== Positioning Chart Lightbox ==========
+  ...everything until the closing } of that if block
+
+
+========================================
+  SECTION 2: POINT 01 CYLINDERS
+========================================
+
+--- STEP 1: style.css (CSS Variables) ---
+
+Find this block (search for "POINT 01 Cylinders Mobile Variables"):
+
+  /* [COMMENTED OUT - HORIZONTAL SCROLL VERSION]
+  --sp-point01-scroll-width: 100vw;
+  --sp-point01-inner-width: 720px;
+  --sp-point01-padding-x: 20px;
+  */
+
+UNCOMMENT it to:
+
+  --sp-point01-scroll-width: 100vw;
+  /* Set container to full mobile width */
+  --sp-point01-inner-width: 720px;
+  /* The actual width of the cylinder layout */
+  --sp-point01-padding-x: 20px;
+  /* Side padding inside the scroll area */
+
+
+--- STEP 2: style.css (Mobile Styles) ---
+
+Find the commented-out block (search for "COMMENTED OUT - HORIZONTAL SCROLL VERSION" near .point01-scroll-wrapper):
+
+  /* ===== [COMMENTED OUT - HORIZONTAL SCROLL VERSION] =====
+  .point01-scroll-wrapper { ... }
+  .point01-visual { ... }
+  ===== [END COMMENTED OUT] ===== */
+
+UNCOMMENT it so it becomes:
+
+  .point01-scroll-wrapper {
+    width: 100%;
+    box-sizing: border-box;
+    overflow-x: auto;
+    overflow-y: hidden;
+    -webkit-overflow-scrolling: touch;
+    padding-bottom: 20px;
+    margin-bottom: 30px;
+  }
+
+  .point01-visual {
+    width: var(--sp-point01-inner-width);
+    max-width: none;
+    margin: 0;
+  }
+
+Then DELETE or comment out the "Fit-to-screen version" block right below it:
+
+  /* Fit-to-screen version: cylinders scaled down to fit within viewport */
+  .point01-scroll-wrapper { ... }
+  .point01-visual { ... }
+  .point01-scroll-wrapper:active { ... }
+
+
+--- STEP 3: style.css (Lightbox CSS) ---
+
+DELETE or comment out this section at the bottom of style.css:
+
+  /* ========== CYLINDER LIGHTBOX ========== */
+  .cylinder-lightbox { ... }
+  ...all cylinder lightbox styles...
+
+
+--- STEP 4: index.html (Lightbox HTML) ---
+
+DELETE these lines (near the bottom, before <script>):
+
+  <!-- Lightbox overlay for Point 01 cylinder section -->
+  <div class="cylinder-lightbox" id="cylinderLightbox">
+    ...
+  </div>
+
+
+--- STEP 5: js/main.js (Lightbox JavaScript) ---
+
+DELETE the section labeled:
+
+  // ========== Point 01 Cylinder Lightbox ==========
+  ...everything until the closing } of that if block
+
+
+================================================================================
+  Save all files and refresh the page. Both sections will revert to
+  horizontal scrolling on mobile.
+================================================================================

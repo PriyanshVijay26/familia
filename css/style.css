@@ -282,8 +282,12 @@ img {
   color: #ffff00;
   line-height: 0.85;
   letter-spacing: -2px;
-  -webkit-text-stroke: 2px #0056b3;
-  text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.5);
+  text-shadow:
+    -2px -2px 0 #0056b3,
+    2px -2px 0 #0056b3,
+    -2px 2px 0 #0056b3,
+    2px 2px 0 #0056b3,
+    0px 3px 6px rgba(0, 0, 0, 0.5);
   margin: 0 2px;
 }
 
@@ -2002,12 +2006,18 @@ img {
   }
 
   .franchise-plan-box__left {
+    flex: 0 0 42%;
+    width: 42%;
     font-size: var(--sp-franchise-left-font) !important;
-    padding: 12px 8px !important;
+    padding: 12px 2px !important;
+    letter-spacing: -0.5px !important;
+    white-space: nowrap;
   }
 
   .franchise-plan-box__right {
-    padding: 12px 14px !important;
+    flex: 0 0 58%;
+    width: 58%;
+    padding: 12px 8px !important;
   }
 
   .franchise-plan-box__right .plan-text {
@@ -3406,7 +3416,7 @@ img {
   --sp-business-subtitle-size: 1rem;
   --sp-business-chart-width: 110%;
   /* Chart width on mobile -> increase to make it overflow more */
-  --sp-positioning-chart-width: 800px;
+  /* [COMMENTED OUT - HORIZONTAL SCROLL VERSION] --sp-positioning-chart-width: 800px; */
   /* Positioning chart image width on mobile — increase for bigger, scrollable */
 
   /* --- Point Sections Mobile Variables --- */
@@ -3416,12 +3426,11 @@ img {
   /* Controls how far the bottom line stretches on mobile left & right */
 
   /* --- POINT 01 Cylinders Mobile Variables --- */
+  /* [COMMENTED OUT - HORIZONTAL SCROLL VERSION]
   --sp-point01-scroll-width: 100vw;
-  /* Set container to full mobile width */
   --sp-point01-inner-width: 720px;
-  /* The actual width of the cylinder layout */
   --sp-point01-padding-x: 20px;
-  /* Side padding inside the scroll area */
+  */
 
   /* --- POINT 02 Food Grid Mobile Variables --- */
   --sp-food-arrow-color: #f5a623;
@@ -3478,9 +3487,9 @@ img {
   /* Table header text size (サポートテーマ, サポート内容) */
 
   /* --- Franchise Plan Box Mobile Variables --- */
-  --sp-franchise-left-font: 1rem;
+  --sp-franchise-left-font: 0.72rem;
   /* Left box (加盟金・ロイヤルティ) font size */
-  --sp-franchise-right-font: 1rem;
+  --sp-franchise-right-font: 0.8rem;
   /* Right box (plan text: 加盟金 = ¥2,000,000 etc.) font size */
 
   /* --- Opening Flow Section Mobile Variables --- */
@@ -3628,7 +3637,7 @@ img {
     /* Forces subtitle to stay on one line */
   }
 
-  /* Make chart horizontally scrollable on mobile */
+  /* ===== [COMMENTED OUT - HORIZONTAL SCROLL VERSION] =====
   .positioning-chart {
     width: 100%;
     max-width: none;
@@ -3644,6 +3653,29 @@ img {
     width: var(--sp-positioning-chart-width);
     max-width: none;
     height: auto;
+  }
+  ===== [END COMMENTED OUT] ===== */
+
+  /* Fit-to-screen version: image scaled down to fit within viewport */
+  .positioning-chart {
+    width: 100%;
+    max-width: none;
+    left: 0;
+    transform: none;
+    overflow: hidden;
+    padding-bottom: 12px;
+  }
+
+  .positioning-chart__img {
+    width: 100%;
+    max-width: 100%;
+    height: auto;
+    cursor: pointer;
+    transition: opacity 0.2s ease;
+  }
+
+  .positioning-chart__img:active {
+    opacity: 0.85;
   }
 
   .sp-br {
@@ -3675,15 +3707,14 @@ img {
     /* Prevent the scroll wrapper from causing page-level horizontal scroll */
   }
 
+  /* ===== [COMMENTED OUT - HORIZONTAL SCROLL VERSION] =====
   .point01-scroll-wrapper {
     width: 100%;
     box-sizing: border-box;
     overflow-x: auto;
     overflow-y: hidden;
     -webkit-overflow-scrolling: touch;
-    /* Smooth scrolling on iOS */
     padding-bottom: 20px;
-    /* Space for scrollbar */
     margin-bottom: 30px;
   }
 
@@ -3692,11 +3723,53 @@ img {
     max-width: none;
     margin: 0;
   }
+  ===== [END COMMENTED OUT] ===== */
+
+  /* Fit-to-screen version: cylinders scaled down to fit within viewport */
+  .point01-scroll-wrapper {
+    width: calc(100vw - 20px);
+    box-sizing: border-box;
+    overflow: hidden;
+    margin-bottom: 30px;
+    margin-left: -10px;
+    padding: 0 10px;
+    cursor: pointer;
+  }
+
+  .point01-visual {
+    width: 760px;
+    max-width: none;
+    position: relative;
+    /* Center the scaled content: left = 50% - (760 * scaleFactor / 2) */
+    left: calc(50% - 220.4px);
+    transform: scale(0.58);
+    transform-origin: top left;
+    /* Compensate for empty space left by scale */
+    margin-bottom: -175px;
+  }
+
+  .point01-scroll-wrapper:active {
+    opacity: 0.85;
+  }
+
+  /* Left-align point 01 description on mobile and remove line breaks */
+  .point01-description {
+    text-align: left;
+  }
+
+  .point01-description br {
+    display: none;
+  }
 
   /* POINT 02 Food Grid — single column on mobile */
   .food-grid {
     grid-template-columns: 1fr;
     gap: var(--sp-food-card-gap);
+  }
+
+  /* Remove line breaks in first food card description only on mobile */
+  .food-card:nth-child(1) .food-card__desc br {
+    display: none;
   }
 
   /* Downward arrows between food cards (mobile only) */
@@ -3836,12 +3909,216 @@ img {
     display: block;
   }
 
+  /* 🎯 SWEET SPOT: adjust --sp-outline to control blue outline thickness on mobile */
+  /* --sp-outline = blue border around characters (this is what you see!) */
+
   .hero__number {
+    --sp-outline: 1px;
     font-size: 3.2rem;
+    text-shadow:
+      calc(-1 * var(--sp-outline)) calc(-1 * var(--sp-outline)) 0 #0056b3,
+      var(--sp-outline) calc(-1 * var(--sp-outline)) 0 #0056b3,
+      calc(-1 * var(--sp-outline)) var(--sp-outline) 0 #0056b3,
+      var(--sp-outline) var(--sp-outline) 0 #0056b3,
+      0px 2px 4px rgba(0, 0, 0, 0.5);
+  }
+
+  .hero__title-unit {
+    --sp-outline: 1px;
+    text-shadow:
+      calc(-1 * var(--sp-outline)) calc(-1 * var(--sp-outline)) 0 #0056b3,
+      var(--sp-outline) calc(-1 * var(--sp-outline)) 0 #0056b3,
+      calc(-1 * var(--sp-outline)) var(--sp-outline) 0 #0056b3,
+      var(--sp-outline) var(--sp-outline) 0 #0056b3,
+      0px 2px 4px rgba(0, 0, 0, 0.5);
   }
 
   .hero__title-achieve {
+    --sp-outline: 1px;
     font-size: 2.8rem;
     letter-spacing: 3px;
+    text-shadow:
+      calc(-1 * var(--sp-outline)) calc(-1 * var(--sp-outline)) 0 #0056b3,
+      var(--sp-outline) calc(-1 * var(--sp-outline)) 0 #0056b3,
+      calc(-1 * var(--sp-outline)) var(--sp-outline) 0 #0056b3,
+      var(--sp-outline) var(--sp-outline) 0 #0056b3,
+      0px 2px 4px rgba(0, 0, 0, 0.5);
   }
+}
+
+/* ========== CHART LIGHTBOX (Click-to-expand for positioning chart) ========== */
+.chart-lightbox {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 99999;
+  align-items: center;
+  justify-content: center;
+}
+
+.chart-lightbox.is-active {
+  display: flex;
+}
+
+.chart-lightbox__backdrop {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.85);
+  animation: lightboxFadeIn 0.25s ease;
+}
+
+.chart-lightbox__content {
+  position: relative;
+  z-index: 1;
+  width: 95%;
+  max-width: 900px;
+  max-height: 90vh;
+  animation: lightboxZoomIn 0.3s ease;
+}
+
+.chart-lightbox__img {
+  width: 100%;
+  height: auto;
+  display: block;
+  border-radius: 4px;
+  touch-action: pinch-zoom;
+}
+
+.chart-lightbox__close {
+  position: absolute;
+  top: -40px;
+  right: 0;
+  width: 36px;
+  height: 36px;
+  background: rgba(255, 255, 255, 0.15);
+  border: 1.5px solid rgba(255, 255, 255, 0.5);
+  border-radius: 50%;
+  color: #fff;
+  font-size: 1.4rem;
+  line-height: 1;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.2s ease;
+}
+
+.chart-lightbox__close:hover,
+.chart-lightbox__close:active {
+  background: rgba(255, 255, 255, 0.3);
+}
+
+@keyframes lightboxFadeIn {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes lightboxZoomIn {
+  from {
+    opacity: 0;
+    transform: scale(0.85);
+  }
+
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* ========== CYLINDER LIGHTBOX (Click-to-expand for Point 01 cylinders) ========== */
+.cylinder-lightbox {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 99999;
+  align-items: center;
+  justify-content: center;
+}
+
+.cylinder-lightbox.is-active {
+  display: flex;
+}
+
+.cylinder-lightbox__wrapper {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  width: 92%;
+  max-height: 90vh;
+  animation: lightboxZoomIn 0.3s ease;
+}
+
+.cylinder-lightbox__backdrop {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.85);
+  animation: lightboxFadeIn 0.25s ease;
+}
+
+.cylinder-lightbox__content {
+  position: relative;
+  width: 100%;
+  max-height: 85vh;
+  overflow: hidden;
+  background: #fff;
+  border-radius: 6px;
+  padding: 15px 10px;
+  touch-action: pinch-zoom;
+}
+
+.cylinder-lightbox__inner .point01-visual {
+  transform: none !important;
+  width: 760px !important;
+  max-width: none !important;
+  /* Scale down to fit inside the modal: ~390px modal inner / 760px = ~0.51 */
+  transform: scale(0.52) !important;
+  transform-origin: top left !important;
+  margin-bottom: -210px;
+  position: relative !important;
+  /* Center the scaled content: left = 50% - (760 * 0.52 / 2 = 197.6px) */
+  left: calc(50% - 197.6px) !important;
+}
+
+.cylinder-lightbox__close {
+  position: relative;
+  z-index: 100000;
+  width: 36px;
+  height: 36px;
+  background: rgba(255, 255, 255, 0.2);
+  border: 1.5px solid rgba(255, 255, 255, 0.7);
+  border-radius: 50%;
+  color: #fff;
+  font-size: 1.4rem;
+  line-height: 1;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-left: auto;
+  margin-bottom: 8px;
+  transition: background 0.2s ease;
+}
+
+.cylinder-lightbox__close:hover,
+.cylinder-lightbox__close:active {
+  background: rgba(255, 255, 255, 0.4);
 }
