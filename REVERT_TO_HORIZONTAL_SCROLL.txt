@@ -170,6 +170,62 @@ DELETE the section labeled:
   ...everything until the closing } of that if block
 
 
+========================================
+  SECTION 3: OPENING FLOW CHART
+========================================
+
+--- STEP 1: style.css (Mobile Styles) ---
+
+Find the commented-out block (search for "COMMENTED OUT - HORIZONTAL SCROLL VERSION" near .flow-chart-image):
+
+  /* ===== [COMMENTED OUT - HORIZONTAL SCROLL VERSION] =====
+  .flow-chart-image { ... }
+  .flow-chart-image img { ... }
+  ===== [END COMMENTED OUT] ===== */
+
+UNCOMMENT that block so it becomes:
+
+  /* Flow chart — horizontally scrollable so the image stays readable */
+  .flow-chart-image {
+    width: 100%;
+    overflow-x: auto;
+    overflow-y: hidden;
+    -webkit-overflow-scrolling: touch;
+    padding-bottom: 12px;
+  }
+
+  .flow-chart-image img {
+    width: var(--sp-flow-chart-width);
+    max-width: none;
+    height: auto;
+  }
+
+Then DELETE or comment out the "Fit-to-screen version" block right below it:
+
+  /* Fit-to-screen version: image scaled down to fit within viewport */
+  .flow-chart-image { ... }
+  .flow-chart-image img { ... }
+  .flow-chart-image img:active { ... }
+
+
+--- STEP 2: index.html (Lightbox HTML) ---
+
+DELETE these lines (near the bottom, before <script>):
+
+  <!-- Lightbox overlay for flow chart image -->
+  <div class="chart-lightbox" id="flowLightbox">
+    ...
+  </div>
+
+
+--- STEP 3: js/main.js (Lightbox JavaScript) ---
+
+DELETE the section labeled:
+
+  // ========== Flow Chart Lightbox ==========
+  ...everything until the closing } of that if block
+
+
 ================================================================================
   Save all files and refresh the page. Both sections will revert to
   horizontal scrolling on mobile.

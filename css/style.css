@@ -2734,6 +2734,10 @@ img {
   .btn-mail {
     font-size: 1.3rem;
   }
+
+  .final-cta__buttons .contacts-parts .requ-bottom {
+    text-align: left;
+  }
 }
 
 /* ========== FLOATING CTA ========== */
@@ -3473,7 +3477,7 @@ img {
   /* Main row labels (売上, 食材原価, 粗利, 販売管理費) */
   --sp-revenue-sub-point-size: 0.85rem;
   /* Subpoint labels (人件費, 家賃, 減価償却, etc.) */
-  --sp-revenue-money-size: 0.9rem;
+  --sp-revenue-money-size: 0.85rem;
   /* Money values (¥5,000,000 etc.) */
   --sp-revenue-ratio-size: 0.9rem;
   /* Percentage values (100%, 30% etc.) */
@@ -3731,8 +3735,8 @@ img {
     box-sizing: border-box;
     overflow: hidden;
     margin-bottom: 30px;
-    margin-left: -10px;
-    padding: 0 10px;
+    margin-left: -5px;
+    padding: 0 5px;
     cursor: pointer;
   }
 
@@ -3741,8 +3745,8 @@ img {
     max-width: none;
     position: relative;
     /* Center the scaled content: left = 50% - (760 * scaleFactor / 2) */
-    left: calc(50% - 220.4px);
-    transform: scale(0.58);
+    left: calc(50% - 180px);
+    transform: scale(0.48);
     transform-origin: top left;
     /* Compensate for empty space left by scale */
     margin-bottom: -175px;
@@ -3859,21 +3863,42 @@ img {
     font-weight: var(--sp-flow-intro-weight) !important;
   }
 
-  /* Flow chart — horizontally scrollable so the image stays readable */
+  /* ===== [COMMENTED OUT - HORIZONTAL SCROLL VERSION] =====
   .flow-chart-image {
     width: 100%;
     overflow-x: auto;
     overflow-y: hidden;
     -webkit-overflow-scrolling: touch;
     padding-bottom: 12px;
-    /* space for scrollbar */
   }
 
   .flow-chart-image img {
     width: var(--sp-flow-chart-width);
     max-width: none;
-    /* override the desktop max-width:100% */
     height: auto;
+  }
+  ===== [END COMMENTED OUT] ===== */
+
+  /* Fit-to-screen version: image scaled down to fit within viewport */
+  .flow-chart-image {
+    width: 100%;
+    max-width: none;
+    left: 0;
+    transform: none;
+    overflow: hidden;
+    padding-bottom: 12px;
+  }
+
+  .flow-chart-image img {
+    width: 100%;
+    max-width: 100%;
+    height: auto;
+    cursor: pointer;
+    transition: opacity 0.2s ease;
+  }
+
+  .flow-chart-image img:active {
+    opacity: 0.85;
   }
 
   /* Flow Footer — Stack boxes on mobile and use mobile font size */
@@ -4087,15 +4112,15 @@ img {
 
 .cylinder-lightbox__inner .point01-visual {
   transform: none !important;
-  width: 760px !important;
+  width: 780px !important;
   max-width: none !important;
   /* Scale down to fit inside the modal: ~390px modal inner / 760px = ~0.51 */
-  transform: scale(0.52) !important;
+  transform: scale(0.45) !important;
   transform-origin: top left !important;
   margin-bottom: -210px;
   position: relative !important;
   /* Center the scaled content: left = 50% - (760 * 0.52 / 2 = 197.6px) */
-  left: calc(50% - 197.6px) !important;
+  left: calc(50% - 175.6px) !important;
 }
 
 .cylinder-lightbox__close {

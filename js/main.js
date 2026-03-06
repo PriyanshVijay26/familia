@@ -91,6 +91,34 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
+  // ========== Flow Chart Lightbox ==========
+  const flowImg = document.querySelector(".flow-chart-image img");
+  const flowLightbox = document.getElementById("flowLightbox");
+
+  if (flowImg && flowLightbox) {
+    const flowBackdrop = flowLightbox.querySelector(".chart-lightbox__backdrop");
+    const flowClose = flowLightbox.querySelector(".chart-lightbox__close");
+
+    flowImg.addEventListener("click", () => {
+      flowLightbox.classList.add("is-active");
+      document.body.style.overflow = "hidden";
+    });
+
+    function closeFlowLightbox() {
+      flowLightbox.classList.remove("is-active");
+      document.body.style.overflow = "";
+    }
+
+    flowBackdrop.addEventListener("click", closeFlowLightbox);
+    flowClose.addEventListener("click", closeFlowLightbox);
+
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "Escape" && flowLightbox.classList.contains("is-active")) {
+        closeFlowLightbox();
+      }
+    });
+  }
+
   // ========== Point 01 Cylinder Lightbox ==========
   const cylinderWrapper = document.querySelector(".point01-scroll-wrapper");
   const cylinderLightbox = document.getElementById("cylinderLightbox");
