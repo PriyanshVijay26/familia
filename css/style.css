@@ -2011,7 +2011,7 @@ img {
     font-size: var(--sp-franchise-left-font) !important;
     padding: 12px 2px !important;
     letter-spacing: -0.5px !important;
-    white-space: nowrap;
+  
   }
 
   .franchise-plan-box__right {
